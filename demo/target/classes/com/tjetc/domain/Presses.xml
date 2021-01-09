@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.tjetc.dao.PressesDAO">
+  <select id="byPressid" parameterType="int" resultType="Books">
+  select * from books where pressid = #{id}
+  </select>
+  <resultMap type="Presses" id="Getpresses">
+  <id property="id" column="id"/>
+  <result property="name" column="name"/>
+  <result property="address" column="address"/>
+  <collection property="books" ofType="Books" column="id" select="byPressid"></collection>
+  </resultMap>
+  <select id="findById" parameterType="int" resultMap="Getpresses">
+  select * from presses where id = #{id}
+  </select>
+  <select id="findAll" resultMap="Getpresses">
+  select * from presses 
+  </select>
+  </mapper>

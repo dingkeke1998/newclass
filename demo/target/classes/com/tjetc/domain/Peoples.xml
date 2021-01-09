@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.tjetc.dao.PeoplesDAO">
+  <select id="byPassportId" parameterType="int" resultType="Passports">
+  select * from passports
+  where id = #{passportId}
+  </select>
+  <resultMap type="Peoples" id="GetPassport">
+  <id column="id" property="id"/>
+  <result column="name" property="name"/>
+  <association property="passports" column="passportId" select="byPassportId"></association>
+  </resultMap>
+  <select id="findById" parameterType="int" resultMap="GetPassport">
+  select * from peoples where id = #{id}
+  </select>
+  <select id="findAll" resultMap="GetPassport">
+  select * from peoples
+  </select>
+  </mapper>

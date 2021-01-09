@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+ <configuration>
+ <!-- 引入资源文件，并可以使用EL表表达式获取资源文件中所配置的参数 -->
+ <properties resource="dbconfig.properties"/>
+ <!-- 给实体类设置别名，方便后期编写 -->
+ <typeAliases>
+ <typeAlias type="com.tjetc.domain.User" alias="User"/>
+ <typeAlias type="com.tjetc.domain.Peoples" alias="Peoples"/>
+ <typeAlias type="com.tjetc.domain.Passports" alias="Passports"/>
+ <package name="com.tjetc.domain"/>
+ </typeAliases>
+ <!--environments中可以配置多个environment，要是用哪个environment中数据源和事务管理器呢？给default属性赋值 你要使用的environment的id -->
+ <environments default="mysql_DB">
+ <environment id="mysql_DB">
+ <!-- 事物管理器 后期ssm框架合成的时候会交给spring进行管理 -->
+ <transactionManager type="JDBC"/>
+ <!-- 数据源：驱动名称driver；数据库地址url；数据库账号：username 数据库密码：password -->
+ <dataSource type="POOLED">
+ <property name="driver" value="${driver}"/>
+ <property name="url" value="${url}"/>
+ <property name="username" value="${usn}"/>
+ <property name="password" value="${pwd}"/>
+ </dataSource>
+ </environment>
+ </environments>
+ <!-- 管理sql映射文件 -->
+ <mappers>
+ <mapper resource="com/tjetc/domain/Peoples.xml"/>
+ <mapper resource="com/tjetc/domain/Passports.xml"/>
+ <mapper resource="com/tjetc/domain/Presses.xml"/>
+ <mapper resource="com/tjetc/domain/Books.xml"/>
+ </mappers>
+ </configuration>

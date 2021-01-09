@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.tjetc.dao.PassportsDAO">
+  <select id="byid" parameterType="int" resultType="Peoples">
+  select * from peoples where passportid =#{id}
+  </select>
+  <resultMap type="Passports" id="GetPeople">
+  <id property="id" column="id"/>
+  <result property="serialno" column="serialno"/>
+  <result property="exprie" column="exprie"/>
+  <association property="peoples" column="id" select="byid"></association>
+  </resultMap>
+  <select id="findById" parameterType="int" resultMap="GetPeople">
+  select * from passports where id = #{id}
+  </select>
+  <select id="findAll" resultMap="GetPeople">
+  select * from passports
+  </select>
+  </mapper>

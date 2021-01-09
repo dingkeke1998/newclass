@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册</title>
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<meta content="telephone=no" name="format-detection" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/register.js"></script>
+</head>
+<body> style="background-repeat:no-repeat ;
+background-size:100% 100%;
+background-attachment: fixed;" background="images/body.png">
+	<div class="aui-register-popup">
+		<div class="aui-register-box">
+			<div class="aui-register-link">
+				<a href="http://localhost:8080/index.html;" class="fr">已有账号？去登录</a>
+			</div>
+			<div class="aui-register-logo">
+				<img src="images/logo.png" alt="">
+			</div>
+			<div class="aui-register-form" id="verifyCheck">
+				<form action="">
+
+				
+					<div class="aui-register-form-item">
+						<input type="text" name="username" maxlength="20"  placeholder="账户名" class="txt03 f-r3 required" tabindex="3" data-valid="isNonEmpty||between:3-20||isUname"  id="adminNo">
+						<label class="focus valid"></label>
+					</div>
+					
+					<div class="aui-register-form-item">
+						<input type="password" name="password" placeholder="确认密码" maxlength="20" class="txt05 f-r3 required" tabindex="5" style="ime-mode:disabled;" onpaste="return  false" autocomplete="off" data-valid="isNonEmpty||between:6-16||isRepeat:password" id="rePassword">
+						<label class="focus valid"></label>
+					</div>
+					<div class="aui-register-form-item">
+						<div class="protocol">注册即同意</div>
+						 <button type="button" class="aui-btn-reg" id="submit">注册</button>
+						
+					</div>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+$(function(){
+        $("#submit").click(function(){
+            var url = "http://localhost:8080/registe";
+            var params = {"username":$("input[type='text']").val(), "password":$("input[type='password']").val()};
+            
+            $.ajax({
+                "url" : url,
+                "data" : params,
+                "type" : "post",
+                "success" : function(data) {
+                    // 参数为json类型的对象
+                    if (data.data === "sucess") {
+                         window.location.href = "http://localhost:8080/index.html";
+                    } else {
+                        alert(data.data);
+                    }
+                },
+                "error" : function() {
+                    alert("注册失败");
+                }
+            });
+
+        });
+    });
+	/*$(function() {
+
+		$("#aui-btn-reg").click(function() {
+			if (!verifyCheck._click()) return;
+			alert('恭喜你！注册成功')
+
+		});
+	});*/
+</script>
+
+
+
+</html>
